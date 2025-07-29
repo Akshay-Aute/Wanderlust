@@ -22,7 +22,7 @@
                 </p>
             </div>
         </div>
-        <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
+        <% if(currUser && currUser._id.toString() === listing.owner._id.toString()) { %>
             <div class="btns mb-3">
                 <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-3 edit-btn">Edit</a>
 
@@ -80,11 +80,15 @@
                                                     <%= review.comment %>
                                                 </p>
                                             </div>
-                                            <form method="POST"
-                                                action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                <button class="btn btn-sm btn-dark mb-3">Delete</button>
-                                            </form>
+                                            <% if (currUser && review.author._id.toString()===currUser._id.toString()) {
+                                                %>
+                                                <form method="POST"
+                                                    action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                                    <button class="btn btn-sm btn-dark mb-3">Delete</button>
+                                                </form>
+                                                <% } %>
                                         </div>
+
                                         <% } %>
                                 </div>
                                 <% } %>
@@ -99,20 +103,21 @@
                 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
                 <script>
-                    const lat = <%= listing.geolocation ?listing.geolocation.lat: 0 %>;
-                    const lon = <%= listing.geolocation ?listing.geolocation.lon: 0 %>;
+                    const mapLat = <%= listing.geolocation && listing.geolocation.lat ? listing.geolocation.lat : 0 %>;
+                    const mapLon = <%= listing.geolocation && listing.geolocation.lon ? listing.geolocation.lon : 0 %>;
 
                     const title = "<%- listing.title %>";
 
-                    const map = L.map('map').setView([lat, lon], 13);
+                    const map = L.map('map').setView([mapLat, mapLon], 13);
 
                     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     }).addTo(map);
 
-                    L.marker([lat, lon]).addTo(map)
+                    L.marker([mapLat, mapLon]).addTo(map)
                         .bindPopup(title)
                         .openPopup();
                 </script>
+
     </div>
     </div>
