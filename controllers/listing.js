@@ -2,12 +2,15 @@ const Listing = require("../models/listing");
 const axios = require("axios");
 async function getGeolocation(address) {
   try {
-    const response = await axios.get(`https://nominatim.openstreetmap.org/search`, {
-      params: {
-        q: address,
-        format: "json",
-      },
-    });
+    const response = await axios.get(
+      `https://nominatim.openstreetmap.org/search`,
+      {
+        params: {
+          q: address,
+          format: "json",
+        },
+      }
+    );
 
     if (!response.data || response.data.length === 0) {
       console.log("Error: No location found");
@@ -24,6 +27,14 @@ async function getGeolocation(address) {
 }
 module.exports.index = async (req, res) => {
   const allListings = await Listing.find({});
+  // Ensure geolocation exists for all listings
+  allListings = allListings.map((l) => {
+    if (!l.geolocation) {
+      l.geolocation = { lat: 0, lon: 0 };
+    }
+    return l;
+  });
+
   res.render("listings/index", { allListings });
 };
 
@@ -46,16 +57,19 @@ module.exports.showListing = async (req, res) => {
     req.flash("error", "Requested Listing Does Not Exists");
     return res.redirect("/listings");
   }
-  console.log(listing);
+
+  if (!listing.geolocation) {
+    listing.geolocation = { lat: 0, lon: 0 };
+  }
+
   res.render("listings/show", { listing });
 };
 
 module.exports.createListing = async (req, res, next) => {
-  let { title, description, image, price, location, country } = req.body.listing;
+  let { title, description, image, price, location, country } =
+    req.body.listing;
 
   const response = await getGeolocation(location + " " + country);
-  console.log(response);
-
   let url = req.file.path;
   let filename = req.file.filename;
 
@@ -65,10 +79,9 @@ module.exports.createListing = async (req, res, next) => {
     price: price,
     country: country,
     location: location,
-    geolocation: {
-      lat: response.lat,
-      lon: response.lon,
-    },
+    geolocation: response
+      ? { lat: response.lat, lon: response.lon }
+      : { lat: 0, lon: 0 },
   };
   const newListing = new Listing(listing);
   newListing.owner = req.user._id;
