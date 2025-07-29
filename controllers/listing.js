@@ -26,7 +26,7 @@ async function getGeolocation(address) {
   }
 }
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
+  let allListings = await Listing.find({});
   // Ensure geolocation exists for all listings
   allListings = allListings.map((l) => {
     if (!l.geolocation) {
