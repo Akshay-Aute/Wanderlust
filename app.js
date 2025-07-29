@@ -18,7 +18,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const port = 3000;
+const port = process.env.PORT ||3000;
 const dbUrl = process.env.ATLASDB_URL;
 
 main()
