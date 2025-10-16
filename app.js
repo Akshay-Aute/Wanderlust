@@ -87,9 +87,10 @@ app.use((req, res, next) => {
 //  res.send(registredUser);
 // });
 
-// app.get("/",(req, res) => {
-//     res.send("Root Path");
-// });
+// Redirect root URL to /listings
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
