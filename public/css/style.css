@@ -22,40 +22,53 @@ body {
   color: #222222 !important;
 }
 
-/* footer */
+/* ================================= */
+/* --- FOOTER (RESPONSIVE FIX) --- */
+/* ================================= */
+
+footer {
+  background-color: #ebebeb; /* Your background color */
+  padding: 1.5rem 1rem;
+  margin-top: 2rem;
+}
 
 .f-info-links a {
   text-decoration: none;
-  color: #222222;
+  color: #222222; /* Your link color */
 }
 
 .f-info-links a:hover {
   text-decoration: underline;
 }
 
-.f-info-links,
-.f-info-socials,
-.f-info-brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
 .f-info-socials i {
-  margin-right: 1rem;
-  font-size: 1.2rem;
+  margin: 0 0.5rem; /* Spacing for icons */
+  font-size: 1.2rem; /* Your icon size */
 }
 
+/* Mobile-First: Stacked by default */
 .f-info {
-  text-align: center;
-  height: 8rem;
   display: flex;
-  background-color: #ebebeb;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: space-evenly;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;    /* Center-align */
+  gap: 1.25rem;           /* Space between stacked items */
+  text-align: center;
 }
+
+/* Laptop Media Query */
+@media (min-width: 768px) {
+  /* On laptops, go side-by-side */
+  .f-info {
+    flex-direction: row;        /* Horizontal layout */
+    justify-content: space-between; /* Space items out evenly */
+    align-items: center;
+  }
+}
+
+/* ================================= */
+/* --- END OF FOOTER FIX ---       */
+/* ================================= */
+
 
 /* cards */
 .listing-card {
@@ -118,8 +131,8 @@ body {
 }
 
 /* Map */
-
+/* --- MAP (RESPONSIVE FIX) --- */
 #map {
   height: 400px !important;
-  width: 80vh !important;
+  width: 100% !important; /* Changed from 80vh to 100% to fill its container */
 }

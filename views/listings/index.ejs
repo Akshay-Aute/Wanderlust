@@ -1,16 +1,35 @@
 <% layout("/layouts/boilerplate") %>
     <style>
-        #filters {
+        #filters-container {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+
+        .scrollable-filters {
+            display: flex;
+            overflow-x: auto;
+            flex-wrap: nowrap;
             align-items: center;
         }
+
+
+        .scrollable-filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollable-filters {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
 
         .filter {
             text-align: center;
             margin-right: 2rem;
             margin-top: 1.5rem;
             opacity: 0.7;
+            flex-shrink: 0;
         }
 
         .filter:hover {
@@ -18,8 +37,8 @@
             cursor: pointer;
         }
 
-        .tax-info {
-            display: none;
+        .trend {
+            margin-left: 2rem;
         }
 
         .tax-toggle {
@@ -27,61 +46,84 @@
             border-radius: 1rem;
             height: 3.25rem;
             padding: 1rem;
-            margin-left: 2rem;
             display: flex;
             align-items: center;
+            justify-content: center;
+            margin-top: 1.5rem;
         }
 
-        .trend {
-            margin-left: 2rem;
+        .tax-info {
+            display: none;
+        }
+
+
+        @media (min-width: 992px) {
+            #filters-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .tax-toggle {
+                margin-top: 0;
+                margin-left: 2rem;
+                flex-shrink: 0;
+            }
+
+            .scrollable-filters {
+                margin-top: 0;
+            }
         }
     </style>
+    <div id="filters-container">
 
-    <div id="filters">
-        <div class="filter trend">
-            <div><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
+        <div class="scrollable-filters">
+            <div class="filter trend">
+                <div><i class="fa-solid fa-fire"></i></div>
+                <p>Trending</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-bed"></i></div>
+                <p>Room</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-mountain-city"></i></div>
+                <p>Iconic Cities</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-mountain"></i></div>
+                <p>Mountain</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-mug-hot"></i></div>
+                <p>Cafes</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-spa"></i></div>
+                <p>Luxury</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-dog"></i></div>
+                <p>Pet Friendly</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-sun"></i></div>
+                <p>Desert</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-city"></i></div>
+                <p>Urban</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-hotel"></i></div>
+                <p>Hotels</p>
+            </div>
+            <div class="filter">
+                <div><i class="fa-solid fa-building"></i></div>
+                <p>Lofts</p>
+            </div>
         </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-bed"></i></div>
-            <p>Room</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain-city"></i></div>
-            <p>Iconic Cities</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mountain"></i></div>
-            <p>Mountain</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-mug-hot"></i></div>
-            <p>Cafes</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-spa"></i></div>
-            <p>Luxury</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-dog"></i></div>
-            <p>Pet Friendly</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-sun"></i></div>
-            <p>Desert</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-city"></i></div>
-            <p>Urban</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-hotel"></i></div>
-            <p>Hotels</p>
-        </div>
-        <div class="filter">
-            <div><i class="fa-solid fa-building"></i></div>
-            <p>Lofts</p>
-        </div>
+
         <div class="tax-toggle">
             <div class="form-check-reverse form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
