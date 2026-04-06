@@ -50,8 +50,8 @@ footer {
 .f-info {
   display: flex;
   flex-direction: column; /* Stack items vertically */
-  align-items: center;    /* Center-align */
-  gap: 1.25rem;           /* Space between stacked items */
+  align-items: center; /* Center-align */
+  gap: 1.25rem; /* Space between stacked items */
   text-align: center;
 }
 
@@ -59,7 +59,7 @@ footer {
 @media (min-width: 768px) {
   /* On laptops, go side-by-side */
   .f-info {
-    flex-direction: row;        /* Horizontal layout */
+    flex-direction: row; /* Horizontal layout */
     justify-content: space-between; /* Space items out evenly */
     align-items: center;
   }
@@ -68,7 +68,6 @@ footer {
 /* ================================= */
 /* --- END OF FOOTER FIX ---       */
 /* ================================= */
-
 
 /* cards */
 .listing-card {
@@ -135,4 +134,15 @@ footer {
 #map {
   height: 400px !important;
   width: 100% !important; /* Changed from 80vh to 100% to fill its container */
+}
+body {
+  background-color: #f7f7f7;
+}
+
+h2 {
+  font-size: 28px;
+}
+
+p {
+  font-size: 15px;
 }
