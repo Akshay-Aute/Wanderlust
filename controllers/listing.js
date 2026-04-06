@@ -9,7 +9,7 @@ async function getGeolocation(address) {
           q: address,
           format: "json",
         },
-      }
+      },
     );
 
     if (!response.data || response.data.length === 0) {
@@ -126,4 +126,33 @@ module.exports.deleteListing = async (req, res) => {
   console.log(deletedListing);
   req.flash("success", "Listing Deleted");
   res.redirect("/listings");
+};
+
+module.exports.searchListings = async (req, res) => {
+  const { query } = req.query;
+
+  if (!query) {
+    return res.redirect("/listings");
+  }
+
+  let listings = await Listing.find({
+    $or: [
+      { title: { $regex: query, $options: "i" } },
+      { location: { $regex: query, $options: "i" } },
+      { country: { $regex: query, $options: "i" } },
+    ],
+  });
+
+  // Ensure geolocation exists (same as index)
+  listings = listings.map((l) => {
+    if (!l.geolocation) {
+      l.geolocation = { lat: 0, lon: 0 };
+    }
+    return l;
+  });
+
+  res.render("listings/index", {
+    allListings: listings,
+    query: req.query.query,
+  });
 };

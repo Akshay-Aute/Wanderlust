@@ -133,25 +133,43 @@
     </div>
 
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-        <% for(let listing of allListings){ %>
-            <a href="/listings/<%= listing.id %>" class="listing-link">
-                <div class="card col listing-card">
-                    <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing_Image" style="height:20rem;">
-                    <!-- <div class="card-img-overlay"> abcd</div> -->
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <b>
-                                <%= listing.title %>
-                            </b>
-                        </h5>
-                        <p class="card-text">
-                            &#8377; <%= listing.price.toLocaleString("en-IN") %>/ night
-                                <i class="tax-info">&nbsp; +18% GST</i>
-                        </p>
-                    </div>
+        <% if (allListings.length===0) { %>
+            <div class="d-flex justify-content-center align-items-center" style="height: 50vh; width: 100%;">
+                <div class="text-center">
+                    <i class="fa-solid fa-magnifying-glass-location mb-3" style="font-size: 3rem; color: #fe424d;"></i>
+                    <h3 class="fw-semibold">
+                        No results for "<%= query %>"
+                    </h3>
+                    <p class="text-muted mb-3">
+                        Try searching a different location
+                    </p>
+                    <a href="/listings" class="btn btn-dark rounded-pill px-4">
+                        Back to Explore
+                    </a>
                 </div>
-            </a>
+            </div>
+
             <% } %>
+                <% for(let listing of allListings){ %>
+                    <a href="/listings/<%= listing.id %>" class="listing-link">
+                        <div class="card col listing-card">
+                            <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing_Image"
+                                style="height:20rem;">
+                            <!-- <div class="card-img-overlay"> abcd</div> -->
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <b>
+                                        <%= listing.title %>
+                                    </b>
+                                </h5>
+                                <p class="card-text">
+                                    &#8377; <%= listing.price.toLocaleString("en-IN") %>/ night
+                                        <i class="tax-info">&nbsp; +18% GST</i>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                    <% } %>
     </div>
     </body>
 
