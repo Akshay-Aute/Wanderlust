@@ -58,8 +58,10 @@
           <% listing.reviews.forEach(review=> { %>
             <div class="mb-3 p-3 border rounded-4">
 
-              <h6 class="mb-1">@<%= review.author.username %>
+              <h6 class="mb-1">
+                @<%= review.author ? review.author.username : "Deleted User" %>
               </h6>
+
 
               <!-- Dynamic Stars -->
               <div class="text-warning mb-1">
@@ -70,7 +72,7 @@
                 <%= review.comment %>
               </p>
 
-              <% if(currUser && review.author._id.toString()===currUser._id.toString()) { %>
+              <% if(review.author && currUser && review.author._id.toString()===currUser._id.toString()) { %>
                 <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                   <button class="btn btn-sm btn-outline-dark rounded-pill">Delete</button>
                 </form>
